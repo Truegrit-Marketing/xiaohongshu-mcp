@@ -471,9 +471,11 @@ func (a *LoginAction) FetchQrcodeImage(ctx context.Context) (string, bool, error
 
 	// 中文站没登录时自动弹出登录框；海外站不弹，要先点侧栏的「登录」（2026-10-13 实测）。
 	// 页面上另有一个「下载 App」的二维码，所以只认登录框里的；等不到就报错，不挂到客户端超时。
+	// 2026-11-01：海外站侧栏的「登录」不再是 <button>，改成 <a id="login-btn"> / <div class="… login-btn">，
+	// 原来的 button.login-btn 找不到，每次等满 30 秒超时；这三种都认（loginButtonSelector）。
 	// Modified for ycl-2004/xiaohongshu-mcp; see NOTICE.
 	if has, _, _ := pp.Has(".login-container .qrcode-img"); !has {
-		button, err := pp.Timeout(qrcodeTimeout).Element("button.login-btn")
+		button, err := pp.Timeout(qrcodeTimeout).Element(loginButtonSelector)
 		if err != nil {
 			return "", false, errors.Wrap(err, "没有登录框，也找不到「登录」按钮")
 		}
@@ -546,6 +548,9 @@ func (a *LoginAction) WaitForLoginWithState(ctx context.Context, observe func(Lo
 		}
 	}
 }
+
+// loginButtonSelector 侧栏「登录」：先认海外站现在的 <a id="login-btn">，再认 div 和原来的 button。
+const loginButtonSelector = "#login-btn, .side-bar-component.login-btn, button.login-btn"
 
 // qrcodeTimeout 等登录框和二维码出现的上限：原来没有上限，选择器对不上时请求会一直挂着。
 const qrcodeTimeout = 30 * time.Second

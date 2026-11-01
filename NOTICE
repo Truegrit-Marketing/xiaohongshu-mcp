@@ -24,6 +24,8 @@ Marketing_Agent patches rebased on top. Where both changed the same thing they w
   or intl) pins the process: sessions of the other site are refused, never overwritten, and a
   login that lands on the other site does not switch it. Files stamped "rednote" by older ycl-2004
   builds read as intl.
+- rednote login button (2026-11-01): the sidebar "登录" on rednote.com is now an <a id="login-btn"> / <div class="login-btn">,
+  not a <button>; GET /login/qrcode now accepts all three (loginButtonSelector) instead of timing out after 30 s.
 - QR login: the fork's login sessions (OTP, security QR) are kept; GET /login/qrcode also returns a
   numeric session, and GET /login/qrcode/state reports it as none / waiting / success / expired /
   failed (raw state in detail).
