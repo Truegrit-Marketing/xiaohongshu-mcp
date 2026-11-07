@@ -686,6 +686,8 @@ opencode mcp list
 
 </details>
 
+#### Cursor
+
 <details>
 <summary><b>Cursor</b></summary>
 
@@ -811,6 +813,8 @@ npx @modelcontextprotocol/inspector
 - 检查 List Tools 是否返回 25 个工具
 
 </details>
+
+#### Cline
 
 <details>
 <summary><b>Cline</b></summary>
@@ -1015,7 +1019,7 @@ ChineseInLA 每个服务实例同时只保留一个登录会话和一个待发�
 - 若遇到连接失败、工具调用异常等问题，请先排查 MCPorter 自身的配置，而非提交 Issue
 - 在提问社区或群组前，请先确认问题是否能在**不使用 OpenClaw** 的情况下复现
 
-如果你没有强烈的 OpenClaw 使用需求，强烈建议改用 [Claude Code CLI](#claude-code-cli)、[Cursor](#cursor) 或 [Cline](#cline) 等原生支持 HTTP MCP 的客户端，体验会更稳定。
+如果你没有强烈的 OpenClaw 使用需求，强烈建议改用 [Claude Code CLI](#claude-code-cli-接入)、[Cursor](#cursor) 或 [Cline](#cline) 等原生支持 HTTP MCP 的客户端，体验会更稳定。
 
 ---
 

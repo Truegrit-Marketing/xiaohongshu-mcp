@@ -678,6 +678,8 @@ opencode mcp list
 
 </details>
 
+#### Cursor
+
 <details>
 <summary><b>Cursor</b></summary>
 
@@ -803,6 +805,8 @@ Usage steps:
 - Check if List Tools returns 25 tools
 
 </details>
+
+#### Cline
 
 <details>
 <summary><b>Cline</b></summary>
@@ -1005,7 +1009,7 @@ Use xiaohongshu-mcp's video publishing feature.
 - If you hit connection failures or abnormal tool calls, please check MCPorter's own configuration first instead of filing an Issue
 - Before asking in the community or the groups, please confirm whether the problem also reproduces **without OpenClaw**
 
-If you do not specifically need OpenClaw, we strongly recommend switching to a client with native HTTP MCP support such as [Claude Code CLI](#claude-code-cli), [Cursor](#cursor) or [Cline](#cline) — the experience is much more stable.
+If you do not specifically need OpenClaw, we strongly recommend switching to a client with native HTTP MCP support such as [Claude Code CLI](#claude-code-cli-integration), [Cursor](#cursor) or [Cline](#cline) — the experience is much more stable.
 
 ---
 
