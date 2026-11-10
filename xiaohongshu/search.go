@@ -139,7 +139,9 @@ func (s *SearchAction) Search(ctx context.Context, keyword string, filters ...Fi
 
 	searchURL := makeSearchURL(keyword)
 	page.MustNavigate(searchURL)
-	page.MustWaitLoad()
+	if !humanize.Fast() { // 提速时不等整页 load：下面本来就轮询首屏结果到没到
+		page.MustWaitLoad()
+	}
 	if waitSearchReady(page, searchReadyTimeout) == searchEmpty {
 		return &SearchResults{Feeds: []Feed{}}, nil // 页面明确显示没有结果：筛选面板也不会出现，不必再等
 	}

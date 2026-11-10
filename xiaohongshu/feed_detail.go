@@ -107,10 +107,11 @@ func (f *FeedDetailAction) GetFeedDetailWithConfig(ctx context.Context, feedID, 
 		config.ClickMoreReplies, config.MaxRepliesThreshold, config.MaxCommentItems, config.ScrollSpeed)
 
 	// 使用retry-go处理页面导航和DOM稳定等待
+	loaded := false // 提速时：帖子的数据已经确认到了
 	err := retry.Do(
 		func() error {
 			page.MustNavigate(url)
-			waitFeedPageReady(page)
+			loaded = waitFeedDataReady(page, feedID)
 			return nil
 		},
 		retry.Attempts(3),
@@ -126,8 +127,10 @@ func (f *FeedDetailAction) GetFeedDetailWithConfig(ctx context.Context, feedID, 
 	}
 	humanize.Delay(ctx, humanize.AfterNavigate)
 
-	if err := checkPageAccessible(page); err != nil {
-		return nil, err
+	if !loaded { // 数据已经到了的不用查：checkPageAccessible 找不到错误页要白等两秒多
+		if err := checkPageAccessible(page); err != nil {
+			return nil, err
+		}
 	}
 
 	if loadAllComments {

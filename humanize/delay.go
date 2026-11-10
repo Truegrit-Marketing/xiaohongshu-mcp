@@ -16,6 +16,11 @@ func SetPaceScale(scale float64) {
 	}
 }
 
+// Fast 是不是开了提速（停顿的倍数小于 1）。
+func Fast() bool {
+	return paceScale < 1
+}
+
 // Scaled 按停顿的倍数缩短一段时间（给 humanize 外面的固定停顿用）。
 func Scaled(d time.Duration) time.Duration {
 	return time.Duration(float64(d) * paceScale)

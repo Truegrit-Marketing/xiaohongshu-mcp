@@ -174,3 +174,10 @@ func TestPaceScale_ShortensPausesAndRejectsBadValues(t *testing.T) {
 		assert.Equal(t, 400*time.Millisecond, Scaled(2*time.Second))
 	}
 }
+
+func TestFast_FollowsPaceScale(t *testing.T) {
+	defer SetPaceScale(1)
+	assert.False(t, Fast())
+	SetPaceScale(0.2)
+	assert.True(t, Fast())
+}
