@@ -12,6 +12,7 @@ import (
 	"github.com/xpzouying/xiaohongshu-mcp/browser"
 	"github.com/xpzouying/xiaohongshu-mcp/configs"
 	"github.com/xpzouying/xiaohongshu-mcp/cookies"
+	"github.com/xpzouying/xiaohongshu-mcp/humanize"
 	"github.com/xpzouying/xiaohongshu-mcp/internal/chineseinla"
 	"github.com/xpzouying/xiaohongshu-mcp/internal/reddit"
 	"github.com/xpzouying/xiaohongshu-mcp/xiaohongshu"
@@ -103,6 +104,7 @@ func main() {
 	sessionStore := cookies.NewLoadCookie(cookies.GetCookiesFilePath())
 	configs.SetFingerprintSeed(configs.ResolveFingerprintSeed(sessionStore))
 	configs.SetProxy(configs.ProxyFromEnv())
+	humanize.SetPaceScale(configs.PaceScaleFromEnv())
 	// 站点：环境变量 XHS_SITE > 上次登录写入的 site > 按 cookies 判定 > 国内版。
 	site := xiaohongshu.ResolveSite(configs.SiteKeyFromEnv(), sessionStore)
 	xiaohongshu.SetSite(site)

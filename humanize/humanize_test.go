@@ -163,3 +163,14 @@ func TestRectInset(t *testing.T) {
 		assert.Equal(t, 90.0, got.Bottom)
 	})
 }
+
+func TestPaceScale_ShortensPausesAndRejectsBadValues(t *testing.T) {
+	defer SetPaceScale(1)
+	assert.Equal(t, 2*time.Second, Scaled(2*time.Second))
+	SetPaceScale(0.2)
+	assert.Equal(t, 400*time.Millisecond, Scaled(2*time.Second))
+	for _, bad := range []float64{0, -1, 1.5} { // 不在 (0, 1] 里的不收：不能停掉，也不能变慢
+		SetPaceScale(bad)
+		assert.Equal(t, 400*time.Millisecond, Scaled(2*time.Second))
+	}
+}

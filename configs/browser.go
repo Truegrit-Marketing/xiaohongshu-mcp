@@ -36,6 +36,21 @@ func FingerprintSeed() int {
 	return fingerprintSeed
 }
 
+// PaceScaleFromEnv 从 XHS_PACE_SCALE 读停顿的倍数（0 到 1，比如 0.2 是只停原来的两成）。
+// 未设或非法返回 1（照常）。
+func PaceScaleFromEnv() float64 {
+	s := os.Getenv("XHS_PACE_SCALE")
+	if s == "" {
+		return 1
+	}
+	scale, err := strconv.ParseFloat(s, 64)
+	if err != nil || scale <= 0 || scale > 1 {
+		logrus.Warnf("invalid XHS_PACE_SCALE=%q, ignored (no speed-up)", s)
+		return 1
+	}
+	return scale
+}
+
 // FingerprintSeedFromEnv 从 XHS_FP_SEED 环境变量解析固定 seed。
 // 未设或非法返回 0（回退随机）。env 读取集中在配置层，浏览器工厂只收 Option。
 func FingerprintSeedFromEnv() int {

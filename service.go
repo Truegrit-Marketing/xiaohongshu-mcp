@@ -16,6 +16,7 @@ import (
 	"github.com/xpzouying/xiaohongshu-mcp/browser"
 	"github.com/xpzouying/xiaohongshu-mcp/configs"
 	"github.com/xpzouying/xiaohongshu-mcp/cookies"
+	"github.com/xpzouying/xiaohongshu-mcp/humanize"
 	"github.com/xpzouying/xiaohongshu-mcp/pkg/downloader"
 	"github.com/xpzouying/xiaohongshu-mcp/pkg/xhsutil"
 	"github.com/xpzouying/xiaohongshu-mcp/xiaohongshu"
@@ -941,9 +942,9 @@ func (s *XiaohongshuService) ReplyNotification(ctx context.Context, commentID, c
 }
 
 // lingerBeforeClose 搜索、读帖拿到数据后，关页面前停 2–3 秒：像人看一眼结果再走，
-// 页面上的图片也来得及加载（客户在网页版看到的浏览器画面才是完整的页面）。
+// 页面上的图片也来得及加载（客户在网页版看到的浏览器画面才是完整的页面）。提速时按 XHS_PACE_SCALE 缩短。
 func lingerBeforeClose() {
-	time.Sleep(2*time.Second + time.Duration(rand.Intn(1000))*time.Millisecond)
+	time.Sleep(humanize.Scaled(2*time.Second + time.Duration(rand.Intn(1000))*time.Millisecond))
 }
 
 func newBrowser() *headless_browser.Browser {
