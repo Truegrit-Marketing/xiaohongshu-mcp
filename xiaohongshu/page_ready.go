@@ -29,7 +29,7 @@ const feedDataJS = `(id) => {
 	if (Array.isArray(c.list) && c.list.length > 0) return "note";
 	if (c.firstRequestFinish === true) return "note";
 	const n = d.note.interactInfo ? String(d.note.interactInfo.commentCount || "") : "";
-	return n === "0" ? "note" : "";
+	return n === "0" || n === "" ? "note" : ""; // 没有评论的帖子评论数是 "0" 或空的（2026-11-10 海外站实测）
 }`
 
 // waitFeedDataReady 读帖用：提速（XHS_PACE_SCALE 小于 1）时不等整页 load（图片也算在里面，常要好几秒），
